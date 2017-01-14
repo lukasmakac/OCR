@@ -1,0 +1,5 @@
+c:\Users\Lukas\work\Projects\Konica\OCR\OCR_Model\bin\Debug\OCR_Model.dll
+c:\Users\Lukas\work\Projects\Konica\OCR\OCR_Model\bin\Debug\OCR_Model.pdb
+c:\Users\Lukas\work\Projects\Konica\OCR\OCR_Model\obj\Debug\OCR_Model.dll
+c:\Users\Lukas\work\Projects\Konica\OCR\OCR_Model\obj\Debug\OCR_Model.pdb
+c:\Users\Lukas\work\Projects\Konica\OCR\OCR_Model\obj\Debug\OCR_Model.csprojResolveAssemblyReference.cache

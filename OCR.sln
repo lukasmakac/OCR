@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_WPF", "OCR_WPF\OCR_WPF.csproj", "{6CFCA15D-85A7-4A77-90C3-989C10FC4676}"
+	ProjectSection(ProjectDependencies) = postProject
+		{441C58AE-53BB-4DA3-BB77-17880F5A3C57} = {441C58AE-53BB-4DA3-BB77-17880F5A3C57}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_Controller", "OCR_Processer\OCR_Controller.csproj", "{376D7AF8-D8D1-4174-B185-0D600517937E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_Model", "OCR_Model\OCR_Model.csproj", "{441C58AE-53BB-4DA3-BB77-17880F5A3C57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CFCA15D-85A7-4A77-90C3-989C10FC4676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CFCA15D-85A7-4A77-90C3-989C10FC4676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CFCA15D-85A7-4A77-90C3-989C10FC4676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CFCA15D-85A7-4A77-90C3-989C10FC4676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376D7AF8-D8D1-4174-B185-0D600517937E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376D7AF8-D8D1-4174-B185-0D600517937E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376D7AF8-D8D1-4174-B185-0D600517937E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376D7AF8-D8D1-4174-B185-0D600517937E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{441C58AE-53BB-4DA3-BB77-17880F5A3C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{441C58AE-53BB-4DA3-BB77-17880F5A3C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{441C58AE-53BB-4DA3-BB77-17880F5A3C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{441C58AE-53BB-4DA3-BB77-17880F5A3C57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
