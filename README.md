@@ -1,0 +1,2 @@
+# OCR
+WPF OCR Application
