@@ -12,17 +12,18 @@ namespace OCR_Controller
     {
         const string Language = "eng";
         const string TesseractData = @".\tessdata\";
-       
-        // more under http://regexr.com/3f2i1 
-        const string DatePattern = @"((?:\d\d?\w?\w?)|(?:January|February|March|April|May|June|July|August|September|November|December))[\s|/|,](\d\d?|(?:January|February|March|April|May|June|July|August|September|November|December))[\s|/|,]*(\d{4})";
-        const string TopicPattern = @"Subject:\s((?:\w|\ )*)";
 
-        // storage
-        // public ObservableCollection<OcrDocument> Documents { get; set; }
+        // more under http://regexr.com/3f2i1 
+        const string DatePattern =
+            @"((?:\d\d?\w?\w?)|(?:January|February|March|April|May|June|July|August|September|November|December))[\s|/|,](\d\d?|(?:January|February|March|April|May|June|July|August|September|November|December))[\s|/|,]*(\d{4})";
+
+        const string TopicPattern = @"Subject:\s((?:\w|\ )*)";
+        const string FromPattern = @"(\w.*)\,?\n(?:\w.*\n){1,3}(?:.*)\n\n";
+        const string ToPattern = @"To\:\s?(\w*)?";
+
 
         public Processer()
         {
-
         }
 
         /// <summary>
@@ -72,6 +73,8 @@ namespace OCR_Controller
             var from = GetFrom(page);
             if (from != null) document.From = from;
 
+            var to = GetTo(page);
+            if (to != null) document.To = to;
         }
 
         private String GetTopic(Page page)
@@ -81,7 +84,7 @@ namespace OCR_Controller
             MatchCollection matches = GetRegexResult(TopicPattern, text);
 
             if (matches.Count > 0)
-            {          
+            {
                 //return 1st group in 1st possible match 
                 return matches[0].Groups[1].Value;
             }
@@ -104,25 +107,70 @@ namespace OCR_Controller
 
             //return null if value wasn't found
             return null;
-
         }
 
         private String GetFrom(Page page)
         {
-            String text = page.GetHOCRText(1);
-            
+
             using (var iter = page.GetIterator())
             {
-                iter.Begin();                
+                iter.Begin();
 
-                while (iter.Next(PageIteratorLevel.Block))
+
+                do
                 {
+                    String text = iter.GetText(PageIteratorLevel.Block);
+                    MatchCollection matches = GetRegexResult(FromPattern, text);
 
-                    String line = iter.GetText(PageIteratorLevel.Block);
-                    ElementProperties props = iter.GetProperties();
-                    
-                }
+                    if (matches.Count > 0)
+                    {
+                        return matches[0].Groups[1].Value;
+                    }
+                } while (iter.Next(PageIteratorLevel.Block));
+
             }
+
+
+            return null;
+        }
+
+        private String GetTo(Page page)
+        {
+
+            using (var iter = page.GetIterator())
+            {
+                iter.Begin();
+
+                do
+                {
+                    String text = iter.GetText(PageIteratorLevel.TextLine);
+                    MatchCollection matches = GetRegexResult(ToPattern, text);
+
+                    if (matches.Count > 0)
+                    {
+                        //check whether To: information is in single line
+                        if (!String.IsNullOrEmpty(matches[0].Groups[1].Value))
+                        {
+                            return matches[0].Groups[1].Value;
+                        }
+                        //find in first non-empty text line
+                        else
+                        {
+                            while (iter.Next(PageIteratorLevel.TextLine))
+                            {
+                                String to = iter.GetText(PageIteratorLevel.TextLine);
+                                if (!String.IsNullOrEmpty(to))
+                                {
+                                    //remove linefeed's symbols
+                                    return to.Replace("\n","");
+                                }
+                            }
+                        }                       
+                    }
+                } while (iter.Next(PageIteratorLevel.TextLine));
+
+            }
+
 
             return null;
         }
@@ -132,8 +180,7 @@ namespace OCR_Controller
             Regex defaultRegex = new Regex(pattern);
 
             // Get matches of pattern in text
-            return defaultRegex.Matches(text);             
+            return defaultRegex.Matches(text);
         }
     }
 }
-
